@@ -3,6 +3,7 @@ import ply.yacc as yacc
 
 #__________LEXER____________
 
+# Set of token names
 tokens = [
     'COLON',
     'SEMICOLON',
@@ -25,6 +26,7 @@ tokens = [
     'CTESTRING',
 ]
 
+#Declarar las keywords
 reserved = {
     'if' : 'IF',
     'else' : 'ELSE',
@@ -99,6 +101,7 @@ while True:
 
 #__________PARSER____________
 
+#Definir las gramáticas
 def p_program(p):
     '''
     program : PROGRAM ID SEMICOLON programT bloque
@@ -222,6 +225,7 @@ def p_error(p):
 
 parser = yacc.yacc()
 
+#Analizar el archivo con los ejemplos
 try:
     file = open("ejemplos.txt", "r")
     print(f"PLY LEXER AND PARSER")

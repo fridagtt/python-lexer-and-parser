@@ -29,7 +29,7 @@ class CalcLexer(Lexer):
     ASSIGN = r'='
     CTESTRING = r'"[a-zA-Z0-9!@#$%^&*()]*"'
 
-    # Identifiers and keywords
+    # Declarar los identifiers y las keywords
     ID = r'[a-zA-Z_][a-zA-Z0-9_]*'
     ID['if'] = 'IF'
     ID['else'] = 'ELSE'
@@ -69,6 +69,7 @@ if __name__ == '__main__':
 
 #__________PARSER____________
 
+#Definir las gramáticas
 class CalcParser(Parser):
     # Get the token list from the lexer
     tokens = CalcLexer.tokens
@@ -206,7 +207,8 @@ class CalcParser(Parser):
             self.tokens
         else:
             print("Syntax error at EOF")
-    
+
+#Analizar el archivo con los ejemplos
 if __name__ == '__main__':
     lexer = CalcLexer()
     parser = CalcParser()
