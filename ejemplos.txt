@@ -1,0 +1,5 @@
+program pruebaUno; { }
+program pruebaDos; var variable, variableDos : int; { }
+program pruebaTres ; {variable = 8 > 1;}
+program pruebaCuatro; { if (8 > 1) {varibble = 44;} else {varibble = 88;}}
+program pruebaCinco; { print{"pasa"}; }

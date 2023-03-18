@@ -1,0 +1,1375 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> PROGRAM ID SEMICOLON programT bloque
+Rule 2     programT -> vars
+Rule 3     programT -> empty
+Rule 4     vars -> VAR ID varsT COLON tipo SEMICOLON varsF
+Rule 5     varsT -> COMMA ID varsT
+Rule 6     varsT -> empty
+Rule 7     varsF -> ID varsT COLON tipo SEMICOLON varsF
+Rule 8     varsF -> empty
+Rule 9     tipo -> INT
+Rule 10    tipo -> FLOAT
+Rule 11    bloque -> LBRACKET bloqueT RBRACKET
+Rule 12    bloqueT -> estatuto bloqueT
+Rule 13    bloqueT -> empty
+Rule 14    estatuto -> asignacion
+Rule 15    estatuto -> condicion
+Rule 16    estatuto -> escritura
+Rule 17    asignacion -> ID ASSIGN expresion SEMICOLON
+Rule 18    escritura -> PRINT LBRACKET escrituraT RBRACKET SEMICOLON
+Rule 19    escrituraT -> expresion escrituraF
+Rule 20    escrituraT -> CTESTRING escrituraF
+Rule 21    escrituraF -> COMMA escrituraT
+Rule 22    escrituraF -> empty
+Rule 23    expresion -> exp expresionT
+Rule 24    expresionT -> GREATER exp
+Rule 25    expresionT -> LESS exp
+Rule 26    expresionT -> NOTEQUAL exp
+Rule 27    expresionT -> empty
+Rule 28    condicion -> IF LPAREN expresion RPAREN bloque condicionT
+Rule 29    condicionT -> ELSE bloque
+Rule 30    condicionT -> SEMICOLON
+Rule 31    exp -> termino expT
+Rule 32    expT -> PLUS exp
+Rule 33    expT -> MINUS exp
+Rule 34    expT -> empty
+Rule 35    termino -> factor terminoT
+Rule 36    terminoT -> TIMES termino
+Rule 37    terminoT -> DIVIDE termino
+Rule 38    terminoT -> empty
+Rule 39    factor -> LPAREN expresion RPAREN
+Rule 40    factor -> factorT
+Rule 41    factorT -> factorF varcte
+Rule 42    factorF -> PLUS
+Rule 43    factorF -> MINUS
+Rule 44    factorF -> empty
+Rule 45    varcte -> ID
+Rule 46    varcte -> CTEI
+Rule 47    varcte -> CTEF
+Rule 48    empty -> <empty>
+
+Terminals, with rules where they appear
+
+ASSIGN               : 17
+COLON                : 4 7
+COMMA                : 5 21
+CTEF                 : 47
+CTEI                 : 46
+CTESTRING            : 20
+DIVIDE               : 37
+ELSE                 : 29
+FLOAT                : 10
+GREATER              : 24
+ID                   : 1 4 5 7 17 45
+IF                   : 28
+INT                  : 9
+LBRACKET             : 11 18
+LESS                 : 25
+LPAREN               : 28 39
+MINUS                : 33 43
+NOTEQUAL             : 26
+PLUS                 : 32 42
+PRINT                : 18
+PROGRAM              : 1
+RBRACKET             : 11 18
+RPAREN               : 28 39
+SEMICOLON            : 1 4 7 17 18 30
+TIMES                : 36
+VAR                  : 4
+error                : 
+
+Nonterminals, with rules where they appear
+
+asignacion           : 14
+bloque               : 1 28 29
+bloqueT              : 11 12
+condicion            : 15
+condicionT           : 28
+empty                : 3 6 8 13 22 27 34 38 44
+escritura            : 16
+escrituraF           : 19 20
+escrituraT           : 18 21
+estatuto             : 12
+exp                  : 23 24 25 26 32 33
+expT                 : 31
+expresion            : 17 19 28 39
+expresionT           : 23
+factor               : 35
+factorF              : 41
+factorT              : 40
+program              : 0
+programT             : 1
+termino              : 31 36 37
+terminoT             : 35
+tipo                 : 4 7
+varcte               : 41
+vars                 : 2
+varsF                : 4 7
+varsT                : 4 5 7
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . PROGRAM ID SEMICOLON programT bloque
+
+    PROGRAM         shift and go to state 2
+
+    program                        shift and go to state 1
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> PROGRAM . ID SEMICOLON programT bloque
+
+    ID              shift and go to state 3
+
+
+state 3
+
+    (1) program -> PROGRAM ID . SEMICOLON programT bloque
+
+    SEMICOLON       shift and go to state 4
+
+
+state 4
+
+    (1) program -> PROGRAM ID SEMICOLON . programT bloque
+    (2) programT -> . vars
+    (3) programT -> . empty
+    (4) vars -> . VAR ID varsT COLON tipo SEMICOLON varsF
+    (48) empty -> .
+
+    VAR             shift and go to state 8
+    LBRACKET        reduce using rule 48 (empty -> .)
+
+    programT                       shift and go to state 5
+    vars                           shift and go to state 6
+    empty                          shift and go to state 7
+
+state 5
+
+    (1) program -> PROGRAM ID SEMICOLON programT . bloque
+    (11) bloque -> . LBRACKET bloqueT RBRACKET
+
+    LBRACKET        shift and go to state 10
+
+    bloque                         shift and go to state 9
+
+state 6
+
+    (2) programT -> vars .
+
+    LBRACKET        reduce using rule 2 (programT -> vars .)
+
+
+state 7
+
+    (3) programT -> empty .
+
+    LBRACKET        reduce using rule 3 (programT -> empty .)
+
+
+state 8
+
+    (4) vars -> VAR . ID varsT COLON tipo SEMICOLON varsF
+
+    ID              shift and go to state 11
+
+
+state 9
+
+    (1) program -> PROGRAM ID SEMICOLON programT bloque .
+
+    $end            reduce using rule 1 (program -> PROGRAM ID SEMICOLON programT bloque .)
+
+
+state 10
+
+    (11) bloque -> LBRACKET . bloqueT RBRACKET
+    (12) bloqueT -> . estatuto bloqueT
+    (13) bloqueT -> . empty
+    (14) estatuto -> . asignacion
+    (15) estatuto -> . condicion
+    (16) estatuto -> . escritura
+    (48) empty -> .
+    (17) asignacion -> . ID ASSIGN expresion SEMICOLON
+    (28) condicion -> . IF LPAREN expresion RPAREN bloque condicionT
+    (18) escritura -> . PRINT LBRACKET escrituraT RBRACKET SEMICOLON
+
+    RBRACKET        reduce using rule 48 (empty -> .)
+    ID              shift and go to state 18
+    IF              shift and go to state 19
+    PRINT           shift and go to state 20
+
+    bloqueT                        shift and go to state 12
+    estatuto                       shift and go to state 13
+    empty                          shift and go to state 14
+    asignacion                     shift and go to state 15
+    condicion                      shift and go to state 16
+    escritura                      shift and go to state 17
+
+state 11
+
+    (4) vars -> VAR ID . varsT COLON tipo SEMICOLON varsF
+    (5) varsT -> . COMMA ID varsT
+    (6) varsT -> . empty
+    (48) empty -> .
+
+    COMMA           shift and go to state 22
+    COLON           reduce using rule 48 (empty -> .)
+
+    varsT                          shift and go to state 21
+    empty                          shift and go to state 23
+
+state 12
+
+    (11) bloque -> LBRACKET bloqueT . RBRACKET
+
+    RBRACKET        shift and go to state 24
+
+
+state 13
+
+    (12) bloqueT -> estatuto . bloqueT
+    (12) bloqueT -> . estatuto bloqueT
+    (13) bloqueT -> . empty
+    (14) estatuto -> . asignacion
+    (15) estatuto -> . condicion
+    (16) estatuto -> . escritura
+    (48) empty -> .
+    (17) asignacion -> . ID ASSIGN expresion SEMICOLON
+    (28) condicion -> . IF LPAREN expresion RPAREN bloque condicionT
+    (18) escritura -> . PRINT LBRACKET escrituraT RBRACKET SEMICOLON
+
+    RBRACKET        reduce using rule 48 (empty -> .)
+    ID              shift and go to state 18
+    IF              shift and go to state 19
+    PRINT           shift and go to state 20
+
+    estatuto                       shift and go to state 13
+    bloqueT                        shift and go to state 25
+    empty                          shift and go to state 14
+    asignacion                     shift and go to state 15
+    condicion                      shift and go to state 16
+    escritura                      shift and go to state 17
+
+state 14
+
+    (13) bloqueT -> empty .
+
+    RBRACKET        reduce using rule 13 (bloqueT -> empty .)
+
+
+state 15
+
+    (14) estatuto -> asignacion .
+
+    ID              reduce using rule 14 (estatuto -> asignacion .)
+    IF              reduce using rule 14 (estatuto -> asignacion .)
+    PRINT           reduce using rule 14 (estatuto -> asignacion .)
+    RBRACKET        reduce using rule 14 (estatuto -> asignacion .)
+
+
+state 16
+
+    (15) estatuto -> condicion .
+
+    ID              reduce using rule 15 (estatuto -> condicion .)
+    IF              reduce using rule 15 (estatuto -> condicion .)
+    PRINT           reduce using rule 15 (estatuto -> condicion .)
+    RBRACKET        reduce using rule 15 (estatuto -> condicion .)
+
+
+state 17
+
+    (16) estatuto -> escritura .
+
+    ID              reduce using rule 16 (estatuto -> escritura .)
+    IF              reduce using rule 16 (estatuto -> escritura .)
+    PRINT           reduce using rule 16 (estatuto -> escritura .)
+    RBRACKET        reduce using rule 16 (estatuto -> escritura .)
+
+
+state 18
+
+    (17) asignacion -> ID . ASSIGN expresion SEMICOLON
+
+    ASSIGN          shift and go to state 26
+
+
+state 19
+
+    (28) condicion -> IF . LPAREN expresion RPAREN bloque condicionT
+
+    LPAREN          shift and go to state 27
+
+
+state 20
+
+    (18) escritura -> PRINT . LBRACKET escrituraT RBRACKET SEMICOLON
+
+    LBRACKET        shift and go to state 28
+
+
+state 21
+
+    (4) vars -> VAR ID varsT . COLON tipo SEMICOLON varsF
+
+    COLON           shift and go to state 29
+
+
+state 22
+
+    (5) varsT -> COMMA . ID varsT
+
+    ID              shift and go to state 30
+
+
+state 23
+
+    (6) varsT -> empty .
+
+    COLON           reduce using rule 6 (varsT -> empty .)
+
+
+state 24
+
+    (11) bloque -> LBRACKET bloqueT RBRACKET .
+
+    $end            reduce using rule 11 (bloque -> LBRACKET bloqueT RBRACKET .)
+    ELSE            reduce using rule 11 (bloque -> LBRACKET bloqueT RBRACKET .)
+    SEMICOLON       reduce using rule 11 (bloque -> LBRACKET bloqueT RBRACKET .)
+    ID              reduce using rule 11 (bloque -> LBRACKET bloqueT RBRACKET .)
+    IF              reduce using rule 11 (bloque -> LBRACKET bloqueT RBRACKET .)
+    PRINT           reduce using rule 11 (bloque -> LBRACKET bloqueT RBRACKET .)
+    RBRACKET        reduce using rule 11 (bloque -> LBRACKET bloqueT RBRACKET .)
+
+
+state 25
+
+    (12) bloqueT -> estatuto bloqueT .
+
+    RBRACKET        reduce using rule 12 (bloqueT -> estatuto bloqueT .)
+
+
+state 26
+
+    (17) asignacion -> ID ASSIGN . expresion SEMICOLON
+    (23) expresion -> . exp expresionT
+    (31) exp -> . termino expT
+    (35) termino -> . factor terminoT
+    (39) factor -> . LPAREN expresion RPAREN
+    (40) factor -> . factorT
+    (41) factorT -> . factorF varcte
+    (42) factorF -> . PLUS
+    (43) factorF -> . MINUS
+    (44) factorF -> . empty
+    (48) empty -> .
+
+    LPAREN          shift and go to state 35
+    PLUS            shift and go to state 38
+    MINUS           shift and go to state 39
+    ID              reduce using rule 48 (empty -> .)
+    CTEI            reduce using rule 48 (empty -> .)
+    CTEF            reduce using rule 48 (empty -> .)
+
+    expresion                      shift and go to state 31
+    exp                            shift and go to state 32
+    termino                        shift and go to state 33
+    factor                         shift and go to state 34
+    factorT                        shift and go to state 36
+    factorF                        shift and go to state 37
+    empty                          shift and go to state 40
+
+state 27
+
+    (28) condicion -> IF LPAREN . expresion RPAREN bloque condicionT
+    (23) expresion -> . exp expresionT
+    (31) exp -> . termino expT
+    (35) termino -> . factor terminoT
+    (39) factor -> . LPAREN expresion RPAREN
+    (40) factor -> . factorT
+    (41) factorT -> . factorF varcte
+    (42) factorF -> . PLUS
+    (43) factorF -> . MINUS
+    (44) factorF -> . empty
+    (48) empty -> .
+
+    LPAREN          shift and go to state 35
+    PLUS            shift and go to state 38
+    MINUS           shift and go to state 39
+    ID              reduce using rule 48 (empty -> .)
+    CTEI            reduce using rule 48 (empty -> .)
+    CTEF            reduce using rule 48 (empty -> .)
+
+    expresion                      shift and go to state 41
+    exp                            shift and go to state 32
+    termino                        shift and go to state 33
+    factor                         shift and go to state 34
+    factorT                        shift and go to state 36
+    factorF                        shift and go to state 37
+    empty                          shift and go to state 40
+
+state 28
+
+    (18) escritura -> PRINT LBRACKET . escrituraT RBRACKET SEMICOLON
+    (19) escrituraT -> . expresion escrituraF
+    (20) escrituraT -> . CTESTRING escrituraF
+    (23) expresion -> . exp expresionT
+    (31) exp -> . termino expT
+    (35) termino -> . factor terminoT
+    (39) factor -> . LPAREN expresion RPAREN
+    (40) factor -> . factorT
+    (41) factorT -> . factorF varcte
+    (42) factorF -> . PLUS
+    (43) factorF -> . MINUS
+    (44) factorF -> . empty
+    (48) empty -> .
+
+    CTESTRING       shift and go to state 44
+    LPAREN          shift and go to state 35
+    PLUS            shift and go to state 38
+    MINUS           shift and go to state 39
+    ID              reduce using rule 48 (empty -> .)
+    CTEI            reduce using rule 48 (empty -> .)
+    CTEF            reduce using rule 48 (empty -> .)
+
+    escrituraT                     shift and go to state 42
+    expresion                      shift and go to state 43
+    exp                            shift and go to state 32
+    termino                        shift and go to state 33
+    factor                         shift and go to state 34
+    factorT                        shift and go to state 36
+    factorF                        shift and go to state 37
+    empty                          shift and go to state 40
+
+state 29
+
+    (4) vars -> VAR ID varsT COLON . tipo SEMICOLON varsF
+    (9) tipo -> . INT
+    (10) tipo -> . FLOAT
+
+    INT             shift and go to state 46
+    FLOAT           shift and go to state 47
+
+    tipo                           shift and go to state 45
+
+state 30
+
+    (5) varsT -> COMMA ID . varsT
+    (5) varsT -> . COMMA ID varsT
+    (6) varsT -> . empty
+    (48) empty -> .
+
+    COMMA           shift and go to state 22
+    COLON           reduce using rule 48 (empty -> .)
+
+    varsT                          shift and go to state 48
+    empty                          shift and go to state 23
+
+state 31
+
+    (17) asignacion -> ID ASSIGN expresion . SEMICOLON
+
+    SEMICOLON       shift and go to state 49
+
+
+state 32
+
+    (23) expresion -> exp . expresionT
+    (24) expresionT -> . GREATER exp
+    (25) expresionT -> . LESS exp
+    (26) expresionT -> . NOTEQUAL exp
+    (27) expresionT -> . empty
+    (48) empty -> .
+
+    GREATER         shift and go to state 51
+    LESS            shift and go to state 52
+    NOTEQUAL        shift and go to state 53
+    SEMICOLON       reduce using rule 48 (empty -> .)
+    RPAREN          reduce using rule 48 (empty -> .)
+    COMMA           reduce using rule 48 (empty -> .)
+    RBRACKET        reduce using rule 48 (empty -> .)
+
+    expresionT                     shift and go to state 50
+    empty                          shift and go to state 54
+
+state 33
+
+    (31) exp -> termino . expT
+    (32) expT -> . PLUS exp
+    (33) expT -> . MINUS exp
+    (34) expT -> . empty
+    (48) empty -> .
+
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    GREATER         reduce using rule 48 (empty -> .)
+    LESS            reduce using rule 48 (empty -> .)
+    NOTEQUAL        reduce using rule 48 (empty -> .)
+    SEMICOLON       reduce using rule 48 (empty -> .)
+    RPAREN          reduce using rule 48 (empty -> .)
+    COMMA           reduce using rule 48 (empty -> .)
+    RBRACKET        reduce using rule 48 (empty -> .)
+
+    expT                           shift and go to state 55
+    empty                          shift and go to state 58
+
+state 34
+
+    (35) termino -> factor . terminoT
+    (36) terminoT -> . TIMES termino
+    (37) terminoT -> . DIVIDE termino
+    (38) terminoT -> . empty
+    (48) empty -> .
+
+    TIMES           shift and go to state 60
+    DIVIDE          shift and go to state 61
+    PLUS            reduce using rule 48 (empty -> .)
+    MINUS           reduce using rule 48 (empty -> .)
+    GREATER         reduce using rule 48 (empty -> .)
+    LESS            reduce using rule 48 (empty -> .)
+    NOTEQUAL        reduce using rule 48 (empty -> .)
+    SEMICOLON       reduce using rule 48 (empty -> .)
+    RPAREN          reduce using rule 48 (empty -> .)
+    COMMA           reduce using rule 48 (empty -> .)
+    RBRACKET        reduce using rule 48 (empty -> .)
+
+    terminoT                       shift and go to state 59
+    empty                          shift and go to state 62
+
+state 35
+
+    (39) factor -> LPAREN . expresion RPAREN
+    (23) expresion -> . exp expresionT
+    (31) exp -> . termino expT
+    (35) termino -> . factor terminoT
+    (39) factor -> . LPAREN expresion RPAREN
+    (40) factor -> . factorT
+    (41) factorT -> . factorF varcte
+    (42) factorF -> . PLUS
+    (43) factorF -> . MINUS
+    (44) factorF -> . empty
+    (48) empty -> .
+
+    LPAREN          shift and go to state 35
+    PLUS            shift and go to state 38
+    MINUS           shift and go to state 39
+    ID              reduce using rule 48 (empty -> .)
+    CTEI            reduce using rule 48 (empty -> .)
+    CTEF            reduce using rule 48 (empty -> .)
+
+    expresion                      shift and go to state 63
+    exp                            shift and go to state 32
+    termino                        shift and go to state 33
+    factor                         shift and go to state 34
+    factorT                        shift and go to state 36
+    factorF                        shift and go to state 37
+    empty                          shift and go to state 40
+
+state 36
+
+    (40) factor -> factorT .
+
+    TIMES           reduce using rule 40 (factor -> factorT .)
+    DIVIDE          reduce using rule 40 (factor -> factorT .)
+    PLUS            reduce using rule 40 (factor -> factorT .)
+    MINUS           reduce using rule 40 (factor -> factorT .)
+    GREATER         reduce using rule 40 (factor -> factorT .)
+    LESS            reduce using rule 40 (factor -> factorT .)
+    NOTEQUAL        reduce using rule 40 (factor -> factorT .)
+    SEMICOLON       reduce using rule 40 (factor -> factorT .)
+    RPAREN          reduce using rule 40 (factor -> factorT .)
+    COMMA           reduce using rule 40 (factor -> factorT .)
+    RBRACKET        reduce using rule 40 (factor -> factorT .)
+
+
+state 37
+
+    (41) factorT -> factorF . varcte
+    (45) varcte -> . ID
+    (46) varcte -> . CTEI
+    (47) varcte -> . CTEF
+
+    ID              shift and go to state 65
+    CTEI            shift and go to state 66
+    CTEF            shift and go to state 67
+
+    varcte                         shift and go to state 64
+
+state 38
+
+    (42) factorF -> PLUS .
+
+    ID              reduce using rule 42 (factorF -> PLUS .)
+    CTEI            reduce using rule 42 (factorF -> PLUS .)
+    CTEF            reduce using rule 42 (factorF -> PLUS .)
+
+
+state 39
+
+    (43) factorF -> MINUS .
+
+    ID              reduce using rule 43 (factorF -> MINUS .)
+    CTEI            reduce using rule 43 (factorF -> MINUS .)
+    CTEF            reduce using rule 43 (factorF -> MINUS .)
+
+
+state 40
+
+    (44) factorF -> empty .
+
+    ID              reduce using rule 44 (factorF -> empty .)
+    CTEI            reduce using rule 44 (factorF -> empty .)
+    CTEF            reduce using rule 44 (factorF -> empty .)
+
+
+state 41
+
+    (28) condicion -> IF LPAREN expresion . RPAREN bloque condicionT
+
+    RPAREN          shift and go to state 68
+
+
+state 42
+
+    (18) escritura -> PRINT LBRACKET escrituraT . RBRACKET SEMICOLON
+
+    RBRACKET        shift and go to state 69
+
+
+state 43
+
+    (19) escrituraT -> expresion . escrituraF
+    (21) escrituraF -> . COMMA escrituraT
+    (22) escrituraF -> . empty
+    (48) empty -> .
+
+    COMMA           shift and go to state 71
+    RBRACKET        reduce using rule 48 (empty -> .)
+
+    escrituraF                     shift and go to state 70
+    empty                          shift and go to state 72
+
+state 44
+
+    (20) escrituraT -> CTESTRING . escrituraF
+    (21) escrituraF -> . COMMA escrituraT
+    (22) escrituraF -> . empty
+    (48) empty -> .
+
+    COMMA           shift and go to state 71
+    RBRACKET        reduce using rule 48 (empty -> .)
+
+    escrituraF                     shift and go to state 73
+    empty                          shift and go to state 72
+
+state 45
+
+    (4) vars -> VAR ID varsT COLON tipo . SEMICOLON varsF
+
+    SEMICOLON       shift and go to state 74
+
+
+state 46
+
+    (9) tipo -> INT .
+
+    SEMICOLON       reduce using rule 9 (tipo -> INT .)
+
+
+state 47
+
+    (10) tipo -> FLOAT .
+
+    SEMICOLON       reduce using rule 10 (tipo -> FLOAT .)
+
+
+state 48
+
+    (5) varsT -> COMMA ID varsT .
+
+    COLON           reduce using rule 5 (varsT -> COMMA ID varsT .)
+
+
+state 49
+
+    (17) asignacion -> ID ASSIGN expresion SEMICOLON .
+
+    ID              reduce using rule 17 (asignacion -> ID ASSIGN expresion SEMICOLON .)
+    IF              reduce using rule 17 (asignacion -> ID ASSIGN expresion SEMICOLON .)
+    PRINT           reduce using rule 17 (asignacion -> ID ASSIGN expresion SEMICOLON .)
+    RBRACKET        reduce using rule 17 (asignacion -> ID ASSIGN expresion SEMICOLON .)
+
+
+state 50
+
+    (23) expresion -> exp expresionT .
+
+    SEMICOLON       reduce using rule 23 (expresion -> exp expresionT .)
+    RPAREN          reduce using rule 23 (expresion -> exp expresionT .)
+    COMMA           reduce using rule 23 (expresion -> exp expresionT .)
+    RBRACKET        reduce using rule 23 (expresion -> exp expresionT .)
+
+
+state 51
+
+    (24) expresionT -> GREATER . exp
+    (31) exp -> . termino expT
+    (35) termino -> . factor terminoT
+    (39) factor -> . LPAREN expresion RPAREN
+    (40) factor -> . factorT
+    (41) factorT -> . factorF varcte
+    (42) factorF -> . PLUS
+    (43) factorF -> . MINUS
+    (44) factorF -> . empty
+    (48) empty -> .
+
+    LPAREN          shift and go to state 35
+    PLUS            shift and go to state 38
+    MINUS           shift and go to state 39
+    ID              reduce using rule 48 (empty -> .)
+    CTEI            reduce using rule 48 (empty -> .)
+    CTEF            reduce using rule 48 (empty -> .)
+
+    exp                            shift and go to state 75
+    termino                        shift and go to state 33
+    factor                         shift and go to state 34
+    factorT                        shift and go to state 36
+    factorF                        shift and go to state 37
+    empty                          shift and go to state 40
+
+state 52
+
+    (25) expresionT -> LESS . exp
+    (31) exp -> . termino expT
+    (35) termino -> . factor terminoT
+    (39) factor -> . LPAREN expresion RPAREN
+    (40) factor -> . factorT
+    (41) factorT -> . factorF varcte
+    (42) factorF -> . PLUS
+    (43) factorF -> . MINUS
+    (44) factorF -> . empty
+    (48) empty -> .
+
+    LPAREN          shift and go to state 35
+    PLUS            shift and go to state 38
+    MINUS           shift and go to state 39
+    ID              reduce using rule 48 (empty -> .)
+    CTEI            reduce using rule 48 (empty -> .)
+    CTEF            reduce using rule 48 (empty -> .)
+
+    exp                            shift and go to state 76
+    termino                        shift and go to state 33
+    factor                         shift and go to state 34
+    factorT                        shift and go to state 36
+    factorF                        shift and go to state 37
+    empty                          shift and go to state 40
+
+state 53
+
+    (26) expresionT -> NOTEQUAL . exp
+    (31) exp -> . termino expT
+    (35) termino -> . factor terminoT
+    (39) factor -> . LPAREN expresion RPAREN
+    (40) factor -> . factorT
+    (41) factorT -> . factorF varcte
+    (42) factorF -> . PLUS
+    (43) factorF -> . MINUS
+    (44) factorF -> . empty
+    (48) empty -> .
+
+    LPAREN          shift and go to state 35
+    PLUS            shift and go to state 38
+    MINUS           shift and go to state 39
+    ID              reduce using rule 48 (empty -> .)
+    CTEI            reduce using rule 48 (empty -> .)
+    CTEF            reduce using rule 48 (empty -> .)
+
+    exp                            shift and go to state 77
+    termino                        shift and go to state 33
+    factor                         shift and go to state 34
+    factorT                        shift and go to state 36
+    factorF                        shift and go to state 37
+    empty                          shift and go to state 40
+
+state 54
+
+    (27) expresionT -> empty .
+
+    SEMICOLON       reduce using rule 27 (expresionT -> empty .)
+    RPAREN          reduce using rule 27 (expresionT -> empty .)
+    COMMA           reduce using rule 27 (expresionT -> empty .)
+    RBRACKET        reduce using rule 27 (expresionT -> empty .)
+
+
+state 55
+
+    (31) exp -> termino expT .
+
+    GREATER         reduce using rule 31 (exp -> termino expT .)
+    LESS            reduce using rule 31 (exp -> termino expT .)
+    NOTEQUAL        reduce using rule 31 (exp -> termino expT .)
+    SEMICOLON       reduce using rule 31 (exp -> termino expT .)
+    RPAREN          reduce using rule 31 (exp -> termino expT .)
+    COMMA           reduce using rule 31 (exp -> termino expT .)
+    RBRACKET        reduce using rule 31 (exp -> termino expT .)
+
+
+state 56
+
+    (32) expT -> PLUS . exp
+    (31) exp -> . termino expT
+    (35) termino -> . factor terminoT
+    (39) factor -> . LPAREN expresion RPAREN
+    (40) factor -> . factorT
+    (41) factorT -> . factorF varcte
+    (42) factorF -> . PLUS
+    (43) factorF -> . MINUS
+    (44) factorF -> . empty
+    (48) empty -> .
+
+    LPAREN          shift and go to state 35
+    PLUS            shift and go to state 38
+    MINUS           shift and go to state 39
+    ID              reduce using rule 48 (empty -> .)
+    CTEI            reduce using rule 48 (empty -> .)
+    CTEF            reduce using rule 48 (empty -> .)
+
+    exp                            shift and go to state 78
+    termino                        shift and go to state 33
+    factor                         shift and go to state 34
+    factorT                        shift and go to state 36
+    factorF                        shift and go to state 37
+    empty                          shift and go to state 40
+
+state 57
+
+    (33) expT -> MINUS . exp
+    (31) exp -> . termino expT
+    (35) termino -> . factor terminoT
+    (39) factor -> . LPAREN expresion RPAREN
+    (40) factor -> . factorT
+    (41) factorT -> . factorF varcte
+    (42) factorF -> . PLUS
+    (43) factorF -> . MINUS
+    (44) factorF -> . empty
+    (48) empty -> .
+
+    LPAREN          shift and go to state 35
+    PLUS            shift and go to state 38
+    MINUS           shift and go to state 39
+    ID              reduce using rule 48 (empty -> .)
+    CTEI            reduce using rule 48 (empty -> .)
+    CTEF            reduce using rule 48 (empty -> .)
+
+    exp                            shift and go to state 79
+    termino                        shift and go to state 33
+    factor                         shift and go to state 34
+    factorT                        shift and go to state 36
+    factorF                        shift and go to state 37
+    empty                          shift and go to state 40
+
+state 58
+
+    (34) expT -> empty .
+
+    GREATER         reduce using rule 34 (expT -> empty .)
+    LESS            reduce using rule 34 (expT -> empty .)
+    NOTEQUAL        reduce using rule 34 (expT -> empty .)
+    SEMICOLON       reduce using rule 34 (expT -> empty .)
+    RPAREN          reduce using rule 34 (expT -> empty .)
+    COMMA           reduce using rule 34 (expT -> empty .)
+    RBRACKET        reduce using rule 34 (expT -> empty .)
+
+
+state 59
+
+    (35) termino -> factor terminoT .
+
+    PLUS            reduce using rule 35 (termino -> factor terminoT .)
+    MINUS           reduce using rule 35 (termino -> factor terminoT .)
+    GREATER         reduce using rule 35 (termino -> factor terminoT .)
+    LESS            reduce using rule 35 (termino -> factor terminoT .)
+    NOTEQUAL        reduce using rule 35 (termino -> factor terminoT .)
+    SEMICOLON       reduce using rule 35 (termino -> factor terminoT .)
+    RPAREN          reduce using rule 35 (termino -> factor terminoT .)
+    COMMA           reduce using rule 35 (termino -> factor terminoT .)
+    RBRACKET        reduce using rule 35 (termino -> factor terminoT .)
+
+
+state 60
+
+    (36) terminoT -> TIMES . termino
+    (35) termino -> . factor terminoT
+    (39) factor -> . LPAREN expresion RPAREN
+    (40) factor -> . factorT
+    (41) factorT -> . factorF varcte
+    (42) factorF -> . PLUS
+    (43) factorF -> . MINUS
+    (44) factorF -> . empty
+    (48) empty -> .
+
+    LPAREN          shift and go to state 35
+    PLUS            shift and go to state 38
+    MINUS           shift and go to state 39
+    ID              reduce using rule 48 (empty -> .)
+    CTEI            reduce using rule 48 (empty -> .)
+    CTEF            reduce using rule 48 (empty -> .)
+
+    termino                        shift and go to state 80
+    factor                         shift and go to state 34
+    factorT                        shift and go to state 36
+    factorF                        shift and go to state 37
+    empty                          shift and go to state 40
+
+state 61
+
+    (37) terminoT -> DIVIDE . termino
+    (35) termino -> . factor terminoT
+    (39) factor -> . LPAREN expresion RPAREN
+    (40) factor -> . factorT
+    (41) factorT -> . factorF varcte
+    (42) factorF -> . PLUS
+    (43) factorF -> . MINUS
+    (44) factorF -> . empty
+    (48) empty -> .
+
+    LPAREN          shift and go to state 35
+    PLUS            shift and go to state 38
+    MINUS           shift and go to state 39
+    ID              reduce using rule 48 (empty -> .)
+    CTEI            reduce using rule 48 (empty -> .)
+    CTEF            reduce using rule 48 (empty -> .)
+
+    termino                        shift and go to state 81
+    factor                         shift and go to state 34
+    factorT                        shift and go to state 36
+    factorF                        shift and go to state 37
+    empty                          shift and go to state 40
+
+state 62
+
+    (38) terminoT -> empty .
+
+    PLUS            reduce using rule 38 (terminoT -> empty .)
+    MINUS           reduce using rule 38 (terminoT -> empty .)
+    GREATER         reduce using rule 38 (terminoT -> empty .)
+    LESS            reduce using rule 38 (terminoT -> empty .)
+    NOTEQUAL        reduce using rule 38 (terminoT -> empty .)
+    SEMICOLON       reduce using rule 38 (terminoT -> empty .)
+    RPAREN          reduce using rule 38 (terminoT -> empty .)
+    COMMA           reduce using rule 38 (terminoT -> empty .)
+    RBRACKET        reduce using rule 38 (terminoT -> empty .)
+
+
+state 63
+
+    (39) factor -> LPAREN expresion . RPAREN
+
+    RPAREN          shift and go to state 82
+
+
+state 64
+
+    (41) factorT -> factorF varcte .
+
+    TIMES           reduce using rule 41 (factorT -> factorF varcte .)
+    DIVIDE          reduce using rule 41 (factorT -> factorF varcte .)
+    PLUS            reduce using rule 41 (factorT -> factorF varcte .)
+    MINUS           reduce using rule 41 (factorT -> factorF varcte .)
+    GREATER         reduce using rule 41 (factorT -> factorF varcte .)
+    LESS            reduce using rule 41 (factorT -> factorF varcte .)
+    NOTEQUAL        reduce using rule 41 (factorT -> factorF varcte .)
+    SEMICOLON       reduce using rule 41 (factorT -> factorF varcte .)
+    RPAREN          reduce using rule 41 (factorT -> factorF varcte .)
+    COMMA           reduce using rule 41 (factorT -> factorF varcte .)
+    RBRACKET        reduce using rule 41 (factorT -> factorF varcte .)
+
+
+state 65
+
+    (45) varcte -> ID .
+
+    TIMES           reduce using rule 45 (varcte -> ID .)
+    DIVIDE          reduce using rule 45 (varcte -> ID .)
+    PLUS            reduce using rule 45 (varcte -> ID .)
+    MINUS           reduce using rule 45 (varcte -> ID .)
+    GREATER         reduce using rule 45 (varcte -> ID .)
+    LESS            reduce using rule 45 (varcte -> ID .)
+    NOTEQUAL        reduce using rule 45 (varcte -> ID .)
+    SEMICOLON       reduce using rule 45 (varcte -> ID .)
+    RPAREN          reduce using rule 45 (varcte -> ID .)
+    COMMA           reduce using rule 45 (varcte -> ID .)
+    RBRACKET        reduce using rule 45 (varcte -> ID .)
+
+
+state 66
+
+    (46) varcte -> CTEI .
+
+    TIMES           reduce using rule 46 (varcte -> CTEI .)
+    DIVIDE          reduce using rule 46 (varcte -> CTEI .)
+    PLUS            reduce using rule 46 (varcte -> CTEI .)
+    MINUS           reduce using rule 46 (varcte -> CTEI .)
+    GREATER         reduce using rule 46 (varcte -> CTEI .)
+    LESS            reduce using rule 46 (varcte -> CTEI .)
+    NOTEQUAL        reduce using rule 46 (varcte -> CTEI .)
+    SEMICOLON       reduce using rule 46 (varcte -> CTEI .)
+    RPAREN          reduce using rule 46 (varcte -> CTEI .)
+    COMMA           reduce using rule 46 (varcte -> CTEI .)
+    RBRACKET        reduce using rule 46 (varcte -> CTEI .)
+
+
+state 67
+
+    (47) varcte -> CTEF .
+
+    TIMES           reduce using rule 47 (varcte -> CTEF .)
+    DIVIDE          reduce using rule 47 (varcte -> CTEF .)
+    PLUS            reduce using rule 47 (varcte -> CTEF .)
+    MINUS           reduce using rule 47 (varcte -> CTEF .)
+    GREATER         reduce using rule 47 (varcte -> CTEF .)
+    LESS            reduce using rule 47 (varcte -> CTEF .)
+    NOTEQUAL        reduce using rule 47 (varcte -> CTEF .)
+    SEMICOLON       reduce using rule 47 (varcte -> CTEF .)
+    RPAREN          reduce using rule 47 (varcte -> CTEF .)
+    COMMA           reduce using rule 47 (varcte -> CTEF .)
+    RBRACKET        reduce using rule 47 (varcte -> CTEF .)
+
+
+state 68
+
+    (28) condicion -> IF LPAREN expresion RPAREN . bloque condicionT
+    (11) bloque -> . LBRACKET bloqueT RBRACKET
+
+    LBRACKET        shift and go to state 10
+
+    bloque                         shift and go to state 83
+
+state 69
+
+    (18) escritura -> PRINT LBRACKET escrituraT RBRACKET . SEMICOLON
+
+    SEMICOLON       shift and go to state 84
+
+
+state 70
+
+    (19) escrituraT -> expresion escrituraF .
+
+    RBRACKET        reduce using rule 19 (escrituraT -> expresion escrituraF .)
+
+
+state 71
+
+    (21) escrituraF -> COMMA . escrituraT
+    (19) escrituraT -> . expresion escrituraF
+    (20) escrituraT -> . CTESTRING escrituraF
+    (23) expresion -> . exp expresionT
+    (31) exp -> . termino expT
+    (35) termino -> . factor terminoT
+    (39) factor -> . LPAREN expresion RPAREN
+    (40) factor -> . factorT
+    (41) factorT -> . factorF varcte
+    (42) factorF -> . PLUS
+    (43) factorF -> . MINUS
+    (44) factorF -> . empty
+    (48) empty -> .
+
+    CTESTRING       shift and go to state 44
+    LPAREN          shift and go to state 35
+    PLUS            shift and go to state 38
+    MINUS           shift and go to state 39
+    ID              reduce using rule 48 (empty -> .)
+    CTEI            reduce using rule 48 (empty -> .)
+    CTEF            reduce using rule 48 (empty -> .)
+
+    escrituraT                     shift and go to state 85
+    expresion                      shift and go to state 43
+    exp                            shift and go to state 32
+    termino                        shift and go to state 33
+    factor                         shift and go to state 34
+    factorT                        shift and go to state 36
+    factorF                        shift and go to state 37
+    empty                          shift and go to state 40
+
+state 72
+
+    (22) escrituraF -> empty .
+
+    RBRACKET        reduce using rule 22 (escrituraF -> empty .)
+
+
+state 73
+
+    (20) escrituraT -> CTESTRING escrituraF .
+
+    RBRACKET        reduce using rule 20 (escrituraT -> CTESTRING escrituraF .)
+
+
+state 74
+
+    (4) vars -> VAR ID varsT COLON tipo SEMICOLON . varsF
+    (7) varsF -> . ID varsT COLON tipo SEMICOLON varsF
+    (8) varsF -> . empty
+    (48) empty -> .
+
+    ID              shift and go to state 86
+    LBRACKET        reduce using rule 48 (empty -> .)
+
+    varsF                          shift and go to state 87
+    empty                          shift and go to state 88
+
+state 75
+
+    (24) expresionT -> GREATER exp .
+
+    SEMICOLON       reduce using rule 24 (expresionT -> GREATER exp .)
+    RPAREN          reduce using rule 24 (expresionT -> GREATER exp .)
+    COMMA           reduce using rule 24 (expresionT -> GREATER exp .)
+    RBRACKET        reduce using rule 24 (expresionT -> GREATER exp .)
+
+
+state 76
+
+    (25) expresionT -> LESS exp .
+
+    SEMICOLON       reduce using rule 25 (expresionT -> LESS exp .)
+    RPAREN          reduce using rule 25 (expresionT -> LESS exp .)
+    COMMA           reduce using rule 25 (expresionT -> LESS exp .)
+    RBRACKET        reduce using rule 25 (expresionT -> LESS exp .)
+
+
+state 77
+
+    (26) expresionT -> NOTEQUAL exp .
+
+    SEMICOLON       reduce using rule 26 (expresionT -> NOTEQUAL exp .)
+    RPAREN          reduce using rule 26 (expresionT -> NOTEQUAL exp .)
+    COMMA           reduce using rule 26 (expresionT -> NOTEQUAL exp .)
+    RBRACKET        reduce using rule 26 (expresionT -> NOTEQUAL exp .)
+
+
+state 78
+
+    (32) expT -> PLUS exp .
+
+    GREATER         reduce using rule 32 (expT -> PLUS exp .)
+    LESS            reduce using rule 32 (expT -> PLUS exp .)
+    NOTEQUAL        reduce using rule 32 (expT -> PLUS exp .)
+    SEMICOLON       reduce using rule 32 (expT -> PLUS exp .)
+    RPAREN          reduce using rule 32 (expT -> PLUS exp .)
+    COMMA           reduce using rule 32 (expT -> PLUS exp .)
+    RBRACKET        reduce using rule 32 (expT -> PLUS exp .)
+
+
+state 79
+
+    (33) expT -> MINUS exp .
+
+    GREATER         reduce using rule 33 (expT -> MINUS exp .)
+    LESS            reduce using rule 33 (expT -> MINUS exp .)
+    NOTEQUAL        reduce using rule 33 (expT -> MINUS exp .)
+    SEMICOLON       reduce using rule 33 (expT -> MINUS exp .)
+    RPAREN          reduce using rule 33 (expT -> MINUS exp .)
+    COMMA           reduce using rule 33 (expT -> MINUS exp .)
+    RBRACKET        reduce using rule 33 (expT -> MINUS exp .)
+
+
+state 80
+
+    (36) terminoT -> TIMES termino .
+
+    PLUS            reduce using rule 36 (terminoT -> TIMES termino .)
+    MINUS           reduce using rule 36 (terminoT -> TIMES termino .)
+    GREATER         reduce using rule 36 (terminoT -> TIMES termino .)
+    LESS            reduce using rule 36 (terminoT -> TIMES termino .)
+    NOTEQUAL        reduce using rule 36 (terminoT -> TIMES termino .)
+    SEMICOLON       reduce using rule 36 (terminoT -> TIMES termino .)
+    RPAREN          reduce using rule 36 (terminoT -> TIMES termino .)
+    COMMA           reduce using rule 36 (terminoT -> TIMES termino .)
+    RBRACKET        reduce using rule 36 (terminoT -> TIMES termino .)
+
+
+state 81
+
+    (37) terminoT -> DIVIDE termino .
+
+    PLUS            reduce using rule 37 (terminoT -> DIVIDE termino .)
+    MINUS           reduce using rule 37 (terminoT -> DIVIDE termino .)
+    GREATER         reduce using rule 37 (terminoT -> DIVIDE termino .)
+    LESS            reduce using rule 37 (terminoT -> DIVIDE termino .)
+    NOTEQUAL        reduce using rule 37 (terminoT -> DIVIDE termino .)
+    SEMICOLON       reduce using rule 37 (terminoT -> DIVIDE termino .)
+    RPAREN          reduce using rule 37 (terminoT -> DIVIDE termino .)
+    COMMA           reduce using rule 37 (terminoT -> DIVIDE termino .)
+    RBRACKET        reduce using rule 37 (terminoT -> DIVIDE termino .)
+
+
+state 82
+
+    (39) factor -> LPAREN expresion RPAREN .
+
+    TIMES           reduce using rule 39 (factor -> LPAREN expresion RPAREN .)
+    DIVIDE          reduce using rule 39 (factor -> LPAREN expresion RPAREN .)
+    PLUS            reduce using rule 39 (factor -> LPAREN expresion RPAREN .)
+    MINUS           reduce using rule 39 (factor -> LPAREN expresion RPAREN .)
+    GREATER         reduce using rule 39 (factor -> LPAREN expresion RPAREN .)
+    LESS            reduce using rule 39 (factor -> LPAREN expresion RPAREN .)
+    NOTEQUAL        reduce using rule 39 (factor -> LPAREN expresion RPAREN .)
+    SEMICOLON       reduce using rule 39 (factor -> LPAREN expresion RPAREN .)
+    RPAREN          reduce using rule 39 (factor -> LPAREN expresion RPAREN .)
+    COMMA           reduce using rule 39 (factor -> LPAREN expresion RPAREN .)
+    RBRACKET        reduce using rule 39 (factor -> LPAREN expresion RPAREN .)
+
+
+state 83
+
+    (28) condicion -> IF LPAREN expresion RPAREN bloque . condicionT
+    (29) condicionT -> . ELSE bloque
+    (30) condicionT -> . SEMICOLON
+
+    ELSE            shift and go to state 90
+    SEMICOLON       shift and go to state 91
+
+    condicionT                     shift and go to state 89
+
+state 84
+
+    (18) escritura -> PRINT LBRACKET escrituraT RBRACKET SEMICOLON .
+
+    ID              reduce using rule 18 (escritura -> PRINT LBRACKET escrituraT RBRACKET SEMICOLON .)
+    IF              reduce using rule 18 (escritura -> PRINT LBRACKET escrituraT RBRACKET SEMICOLON .)
+    PRINT           reduce using rule 18 (escritura -> PRINT LBRACKET escrituraT RBRACKET SEMICOLON .)
+    RBRACKET        reduce using rule 18 (escritura -> PRINT LBRACKET escrituraT RBRACKET SEMICOLON .)
+
+
+state 85
+
+    (21) escrituraF -> COMMA escrituraT .
+
+    RBRACKET        reduce using rule 21 (escrituraF -> COMMA escrituraT .)
+
+
+state 86
+
+    (7) varsF -> ID . varsT COLON tipo SEMICOLON varsF
+    (5) varsT -> . COMMA ID varsT
+    (6) varsT -> . empty
+    (48) empty -> .
+
+    COMMA           shift and go to state 22
+    COLON           reduce using rule 48 (empty -> .)
+
+    varsT                          shift and go to state 92
+    empty                          shift and go to state 23
+
+state 87
+
+    (4) vars -> VAR ID varsT COLON tipo SEMICOLON varsF .
+
+    LBRACKET        reduce using rule 4 (vars -> VAR ID varsT COLON tipo SEMICOLON varsF .)
+
+
+state 88
+
+    (8) varsF -> empty .
+
+    LBRACKET        reduce using rule 8 (varsF -> empty .)
+
+
+state 89
+
+    (28) condicion -> IF LPAREN expresion RPAREN bloque condicionT .
+
+    ID              reduce using rule 28 (condicion -> IF LPAREN expresion RPAREN bloque condicionT .)
+    IF              reduce using rule 28 (condicion -> IF LPAREN expresion RPAREN bloque condicionT .)
+    PRINT           reduce using rule 28 (condicion -> IF LPAREN expresion RPAREN bloque condicionT .)
+    RBRACKET        reduce using rule 28 (condicion -> IF LPAREN expresion RPAREN bloque condicionT .)
+
+
+state 90
+
+    (29) condicionT -> ELSE . bloque
+    (11) bloque -> . LBRACKET bloqueT RBRACKET
+
+    LBRACKET        shift and go to state 10
+
+    bloque                         shift and go to state 93
+
+state 91
+
+    (30) condicionT -> SEMICOLON .
+
+    ID              reduce using rule 30 (condicionT -> SEMICOLON .)
+    IF              reduce using rule 30 (condicionT -> SEMICOLON .)
+    PRINT           reduce using rule 30 (condicionT -> SEMICOLON .)
+    RBRACKET        reduce using rule 30 (condicionT -> SEMICOLON .)
+
+
+state 92
+
+    (7) varsF -> ID varsT . COLON tipo SEMICOLON varsF
+
+    COLON           shift and go to state 94
+
+
+state 93
+
+    (29) condicionT -> ELSE bloque .
+
+    ID              reduce using rule 29 (condicionT -> ELSE bloque .)
+    IF              reduce using rule 29 (condicionT -> ELSE bloque .)
+    PRINT           reduce using rule 29 (condicionT -> ELSE bloque .)
+    RBRACKET        reduce using rule 29 (condicionT -> ELSE bloque .)
+
+
+state 94
+
+    (7) varsF -> ID varsT COLON . tipo SEMICOLON varsF
+    (9) tipo -> . INT
+    (10) tipo -> . FLOAT
+
+    INT             shift and go to state 46
+    FLOAT           shift and go to state 47
+
+    tipo                           shift and go to state 95
+
+state 95
+
+    (7) varsF -> ID varsT COLON tipo . SEMICOLON varsF
+
+    SEMICOLON       shift and go to state 96
+
+
+state 96
+
+    (7) varsF -> ID varsT COLON tipo SEMICOLON . varsF
+    (7) varsF -> . ID varsT COLON tipo SEMICOLON varsF
+    (8) varsF -> . empty
+    (48) empty -> .
+
+    ID              shift and go to state 86
+    LBRACKET        reduce using rule 48 (empty -> .)
+
+    varsF                          shift and go to state 97
+    empty                          shift and go to state 88
+
+state 97
+
+    (7) varsF -> ID varsT COLON tipo SEMICOLON varsF .
+
+    LBRACKET        reduce using rule 7 (varsF -> ID varsT COLON tipo SEMICOLON varsF .)
+
